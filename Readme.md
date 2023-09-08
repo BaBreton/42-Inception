@@ -16,13 +16,14 @@ Inception is a project developed as part of the 42 school curriculum. Its primar
 Firstly, you can download virtualization software such as VirtualBox or VMWare, for instance. Considering that you're on an ARM64 architecture, I would personally using Parallels Desktop on Mac.
 Next, you can download the iso of Debian here : https://www.debian.org/distrib/netinst.
 
-<img src=".git/VM1.png" align="center" width="500px"/>
-<- Lets now create a new vm.
-<br clear="center"/>
+<p align="center">
+  <b>Let's now create a VM.</b>
+</p>
 
 <p align="center">
-  <img src=".git/VM2.png" width="400px" alt="Image 1">
-  <img src=".git/VM3.png" width="330px" alt="Image 2">
+  <img src="https://github.com/BaBreton/42-Inception/blob/main/.assets/VM1.png" width="400px" alt="Image 0"/>
+  <img src="https://github.com/BaBreton/42-Inception/blob/main/.assets/VM2.png" width="400px" alt="Image 1">
+  <img src="https://github.com/BaBreton/42-Inception/blob/main/.assets/VM3.png" width="330px" alt="Image 2">
 </p>
 
 I then install Debian 12 on the VM, I won't go into detail about the installation, and directly advanced to configuration.
@@ -54,8 +55,14 @@ It will add Docker's offical GPG key to the keyrings file and add the repository
 ```bash
   sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
   sudo docker run hello-world
-````
+```
 
-<img src=".git/DOCKERSUCCES.png" align="center" width="500px"/>
-<- Docker is now installed.
-<br clear="center"/>
+<p align="center">
+  <b>Docker is now installed.</b>
+</p>
+
+<p align="center">
+  <img src="https://github.com/BaBreton/42-Inception/blob/main/.assets/DOCKERSUCCES.png" width="500px" alt="Image 3"/>
+</p>
+
+---
