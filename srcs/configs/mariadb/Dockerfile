@@ -1,10 +1,8 @@
 # syntax=docker/dockerfile:1
 
 FROM debian:latest
-WORKDIR /etc/nginx
-RUN apt-get update && apt upgrade -y && apt-get install -y sudo nginx ufw
-RUN sudo ufw allow 'Nginx HTTP' && sudo ufw allow 'Nginx HTTPS'
-COPY nginx.conf /etc/nginx/nginx.conf
-COPY index.html /var/www/html/index.html
-EXPOSE 80 443
-CMD ["nginx", "-g", "daemon off;"]
+RUN apt-get update && apt upgrade -y && apt-get install -y sudo mariadb-server
+RUN mkdir -p /var/run/mysqld && chown -R mysql:mysql /var/run/mysqld
+EXPOSE 3306
+CMD ["mysqld", "--socket=/var/run/mysqld/mysqld.sock"]
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 CMD mysqladmin ping -h localhost || exit 1

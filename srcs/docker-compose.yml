@@ -21,3 +21,17 @@ services:
       - ./configs/nginx/html:/var/www/html
     networks:
       - babreton_network
+  mariadb:
+    build:
+      context: ./configs/mariadb
+      dockerfile: Dockerfile
+    ports:
+      - "3306:3306"
+    env_file:
+      - .env
+    user: mysql
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - babreton_network
+    
