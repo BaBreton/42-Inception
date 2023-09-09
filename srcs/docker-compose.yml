@@ -1,20 +1,23 @@
-version: '3.8'  # Assurez-vous d'utiliser la version appropriée de Docker Compose
+version: '3.8'
+
+volumes:
+  mariadb_data:
+  wordpress_data:
+
+networks:
+  babreton_network:
+    driver: bridge
 
 services:
   nginx:
     build:
-      context: ./nginx  # Le chemin du Dockerfile et des fichiers de construction
-      dockerfile: Dockerfile-nginx  # Le nom de votre Dockerfile pour NGINX
+      context: ./configs/nginx
+      dockerfile: Dockerfile
     ports:
-      - "80:80"  # Mappez le port 80 du conteneur NGINX au port 80 de l'hôte
-      - "443:443"  # Mappez le port 443 du conteneur NGINX au port 443 de l'hôte
-    depends_on:
-      - db  # Si vous avez un service de base de données (dépend de son nom)
+      - "80:80"
+      - "443:443"
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf  # Montez le fichier de configuration NGINX
+      - ./configs/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./configs/nginx/html:/var/www/html
     networks:
-      - mynetwork  # Nom du réseau Docker (peut être personnalisé)
-
-networks:
-  mynetwork:
-    driver: bridge  # Vous pouvez personnaliser les options du réseau si nécessaire
+      - babreton_network
