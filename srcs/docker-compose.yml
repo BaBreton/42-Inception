@@ -1,22 +1,5 @@
-version: '3.8'
+version: '3'
 
-volumes:
-  mariadb_data:
-    driver: local
-    driver_opts:
-      type: none
-      device: /home/babreton/mariadb/data/mariadb
-      o: bind
-  wordpress_data:
-    driver: local
-    driver_opts:
-      type: none
-      device: /home/babreton/wordpress/data/wordpress
-      o: bind
-
-networks:
-  inception:
-    driver: bridge
 
 services:
   mariadb:
@@ -26,10 +9,11 @@ services:
     build:
       context: ./configs/mariadb
       dockerfile: Dockerfile
+    image: mariadb
     env_file: .env
     volumes:
       - mariadb_data:/var/lib/mysql
-    restart: unless-stopped
+    restart: on-failure
     expose:
       - "3306"
 
@@ -40,6 +24,7 @@ services:
     build:
       context: ./configs/nginx
       dockerfile: Dockerfile
+    image: nginx
     env_file: .env
     volumes:
       - wordpress_data:/var/www/wordpress
@@ -56,6 +41,7 @@ services:
     build:
       context: ./configs/wordpress
       dockerfile: Dockerfile
+    image: wordpress
     env_file: .env
     volumes:
       - wordpress_data:/var/www/wordpress
@@ -64,3 +50,23 @@ services:
     restart: on-failure
     expose:
       - "9000"
+
+volumes:
+  mariadb_data:
+    driver: local
+    driver_opts:
+      type: 'none'
+      device: '/home/babreton/data/mariadb'
+      o: 'bind'
+    name: mariadb_data
+  wordpress_data:
+    driver: local
+    driver_opts:
+      type: 'none'
+      device: '/home/babreton/data/wordpress'
+      o: 'bind'
+    name: wordpress_data
+
+networks:
+  inception:
+    driver: bridge
