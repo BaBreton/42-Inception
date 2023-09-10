@@ -2,36 +2,65 @@ version: '3.8'
 
 volumes:
   mariadb_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/babreton/mariadb/data/mariadb
+      o: bind
   wordpress_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/babreton/wordpress/data/wordpress
+      o: bind
 
 networks:
-  babreton_network:
+  inception:
     driver: bridge
 
 services:
-  nginx:
-    build:
-      context: ./configs/nginx
-      dockerfile: Dockerfile
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./configs/nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./configs/nginx/html:/var/www/html
-    networks:
-      - babreton_network
   mariadb:
+    container_name: mariadb
+    networks:
+      - inception
     build:
       context: ./configs/mariadb
       dockerfile: Dockerfile
-    ports:
-      - "3306:3306"
-    env_file:
-      - .env
-    user: mysql
+    env_file: .env
     volumes:
       - mariadb_data:/var/lib/mysql
+    restart: unless-stopped
+    expose:
+      - "3306"
+
+  nginx:
+    container_name: nginx
     networks:
-      - babreton_network
-    
+      - inception
+    build:
+      context: ./configs/nginx
+      dockerfile: Dockerfile
+    env_file: .env
+    volumes:
+      - wordpress_data:/var/www/wordpress
+    depends_on:
+      - wordpress
+    ports:
+      - "443:443"
+    restart: on-failure
+
+  wordpress:
+    container_name: wordpress
+    networks:
+      - inception
+    build:
+      context: ./configs/wordpress
+      dockerfile: Dockerfile
+    env_file: .env
+    volumes:
+      - wordpress_data:/var/www/wordpress
+    depends_on:
+      - mariadb
+    restart: on-failure
+    expose:
+      - "9000"

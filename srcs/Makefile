@@ -6,7 +6,7 @@ build:
 	docker-compose -f $(DOCKER_COMPOSE_FILE) build
 
 run:
-	docker-compose -f $(DOCKER_COMPOSE_FILE) up -d nginx mariadb wordpress
+	docker-compose -f $(DOCKER_COMPOSE_FILE) up -d mariadb nginx wordpress
 
 stop:
 	docker-compose -f $(DOCKER_COMPOSE_FILE) down
@@ -18,3 +18,5 @@ fclean: stop
 	@if [ -n "$$(docker ps -a -q)" ]; then docker rm -f $$(docker ps -a -q); fi
 	@if [ -n "$$(docker images -q)" ]; then docker rmi -f $$(docker images -q); fi
 	@if [ -n "$$(docker volume ls -q)" ]; then docker volume prune -f; fi
+
+re: fclean all
