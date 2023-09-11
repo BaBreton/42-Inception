@@ -43,8 +43,9 @@ echo "Creating state file..."
 mkdir -p ./srcs/.tmp > /dev/null 2>&1
 check_ret "Failed to create tmp folder, please check your permissions and consult the logs."
 touch ./srcs/.tmp/state > /dev/null 2>&1
+sleep 1
 check_ret "Failed to create state file, please check your permissions and consult the logs."
-echo "1=OK" >> ./srcs/.tmp/state
+echo "1=OK" > ./srcs/.tmp/state
 fi
 
 # Check docker and docker-compose installation
@@ -71,8 +72,9 @@ sed -i "s/\$login/$login/g" $3 > /dev/null 2>&1
 check_ret "Failed to create docker-compose.yml file, please check your permissions and consult the logs."
 sleep 1
 check_ret "Failed to create docker-compose.yml file, please check your permissions and consult the logs."
+
 echo "Done."
-echo "2=OK" >> ./srcs/.tmp/state
+echo "2=OK" > ./srcs/.tmp/state
 fi
 
 
@@ -176,5 +178,5 @@ if [ "$env" = "y" ]; then
 	clear
 	sleep 0.15
 fi
-echo "Everything is set up, thank you for using Inception by BaBreton, please press a key to continue..."; read
+echo "Everything is set up, thank you for using Inception by BaBreton, please press enter to continue..."; read
 exit 0

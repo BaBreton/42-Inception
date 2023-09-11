@@ -7,9 +7,16 @@ check_ret() {
 }
 
 OK="\\e[0;32m✔ OK\\e[0m"
+docker-compose -v > /dev/null 2>&1
+d-c=$?
+docker -v > /dev/null 2>&1
+d=$?
 
 if dpkg -l | grep "docker" > /dev/null 2>&1; then
 	echo "Docker is correctly installed."
+	docker -v
+	docker-compose -v
+
 else
 	echo "Docker is not installed, would you like to install it? [y/n] (need sudo)"; read docker;
 	if [ "$docker" = "y" ]; then

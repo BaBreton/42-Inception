@@ -3,6 +3,7 @@ CONFIGS_FOLDER = ./srcs/configs
 COMPOSE_FILE = ./srcs/docker-compose.yml
 ENV = ./srcs/.env
 BASEYML = ./srcs/tools/base.yml
+LOGIN = $(shell whoami)
 
 all: config build run
 
@@ -16,7 +17,7 @@ build:
 
 run:
 	sudo docker-compose -f $(COMPOSE_FILE) up -d
-	@echo "\n\nInception is running."
+	@echo "\n\nInception is now running on https://${LOGIN}.42.fr."
 
 stop:
 	sudo docker-compose -f $(COMPOSE_FILE) stop
