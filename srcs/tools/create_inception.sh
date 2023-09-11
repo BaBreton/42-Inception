@@ -1,23 +1,27 @@
 #!/bin/sh
 
 # Variables
-welcome="Welcome to Inception, a 42school project by BaBreton."
-text="This script will install a full web server on your machine."
-term_width=$(tput cols)
-padding=$((($term_width - ${#text}) / 2))
 login=$USER
-good=0
-
-
 clear
-printf "%*s\n" $padding "$welcome"
-printf "%*s\n" $padding "$text"
+
+# Intro
+echo "Welcome to Inception, a 42school project by BaBreton."
+echo "This script will install a full web server on your machine."
 echo ""
 printf "Your current login is: $USER\n"
 printf "The server will be installed in /home/$USER/data/\n"
 printf "The server will be accessible at: $USER.42.fr\n"
 printf "Press a key to continue... "; read 
 clear
+
+# Check docker and docker-compose installation
+echo "Checking docker installation..."
+bash srcs/tools/docker.sh
+if [ $? -eq 1 ]; then
+	echo "Docker is not installed, you need it to use Inception by BaBreton."
+	echo "Aborting..."
+	exit 1
+fi
 
 if ! grep -q "$login.42.fr" /etc/hosts; then
     echo "127.0.0.1 $login.42.fr" | sudo tee -a /etc/hosts

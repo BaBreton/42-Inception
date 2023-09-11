@@ -24,9 +24,9 @@ clean: stop
 	sudo docker-compose -f $(COMPOSE_FILE) down -v
 
 fclean: clean
-	@if [ -n "$$(docker ps -a -q)" ]; then sudo docker rm -f $$(docker ps -a -q); fi
-	@if [ -n "$$(docker images -q)" ]; then sudo docker rmi -f $$(docker images -q); fi
-	@if [ -n "$$(docker volume ls -q)" ]; then sudo docker volume prune -f; fi
+	@if [ -n "$$(sudo docker ps -a -q)" ]; then sudo docker rm -f $$(sudo docker ps -a -q); fi
+	@if [ -n "$$(sudo docker images -q)" ]; then sudo docker rmi -f $$(sudo docker images -q); fi
+	@if [ -n "$$(sudo docker volume ls -q)" ]; then sudo docker volume prune -f; fi
 
 re: fclean all
 
