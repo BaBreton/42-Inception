@@ -1,6 +1,5 @@
 version: '3'
 
-
 services:
   mariadb:
     container_name: mariadb
@@ -56,16 +55,14 @@ volumes:
     driver: local
     driver_opts:
       type: 'none'
-      device: '/home/babreton/data/mariadb'
+      device: '/home/$login/data/mariadb'
       o: 'bind'
-    name: mariadb_data
   wordpress_data:
     driver: local
     driver_opts:
       type: 'none'
-      device: '/home/babreton/data/wordpress'
+      device: '/home/$login/data/wordpress'
       o: 'bind'
-    name: wordpress_data
 
 networks:
   inception:
