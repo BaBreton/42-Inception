@@ -5,7 +5,6 @@ sleep 10
 
 # Move the file /conf/index.php to /var/www/wordpress/index.php
 mv /conf/index.php /var/www/wordpress/index.php
-mv /conf/galaxy.jpeg /var/www/wordpress/galaxy.jpeg
 
 # Check if /var/www/wordpress/wp-config.php doesn't exist
 if [ ! -e /var/www/wordpress/wp-config.php ]; then
