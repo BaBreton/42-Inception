@@ -22,6 +22,8 @@ run:
 stop:
 	sudo docker-compose -f $(COMPOSE_FILE) stop
 
+test: build run
+
 clean: stop
 	sudo docker-compose -f $(COMPOSE_FILE) down -v
 

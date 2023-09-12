@@ -19,7 +19,8 @@ RUN chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
 # Create configuration folder, copy configuration file and custom index.php
 RUN mkdir -p /conf
 COPY conf/create_wordpress.sh /conf/create_wordpress.sh
-COPY conf/index.php /conf/index.php
+COPY conf/www/index.php /conf/index.php
+COPY conf/www/galaxy.jpeg /conf/galaxy.jpeg
 
 # Copy configuration files and give rights
 COPY conf/php.conf /etc/php/7.3/fpm/pool.d/www.conf

@@ -8,11 +8,11 @@ check_ret() {
 
 OK="\\e[0;32m✔ OK\\e[0m"
 docker-compose -v > /dev/null 2>&1
-d-c=$?
+dc=$?
 docker -v > /dev/null 2>&1
 d=$?
 
-if dpkg -l | grep "docker" > /dev/null 2>&1; then
+if [ $dc -eq 0 ] && [ $d -eq 0 ]; then
 	echo "Docker is correctly installed."
 	docker -v
 	docker-compose -v

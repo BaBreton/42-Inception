@@ -22,6 +22,17 @@ grep_state() {
 	fi
 }
 
+check_admin() {
+    local input="$1"  # La chaîne en entrée
+
+    # Utilisation de grep avec une expression régulière insensible à la casse
+    if echo "$input" | grep -qiE '(admin|administrator)'; then
+        return 1
+    else
+        return 0
+    fi
+}
+
 # Variables
 login=$USER
 clear
@@ -152,9 +163,18 @@ if [ "$env" = "y" ]; then
 	sleep 0.15
 	echo -n "SITE_TITLE="; read site_title; echo "SITE_TITLE=$site_title" >> $1
 	clear
+	while true; do
 	echo "Please enter your env variables: "
 	sleep 0.15
-	echo -n "SITE_ADMIN_USER="; read site_admin_user; echo "SITE_ADMIN_USER=$site_admin_user" >> $1
+	echo -n "SITE_ADMIN_USER="; read site_admin_user;
+	check_admin "$site_admin_user"
+	if [ $? -eq 1 ]; then
+		echo "The admin username can't contain the word 'admin' or 'administrator', please try again."
+	else
+		echo "SITE_ADMIN_USER=$site_admin_user" >> $1
+		break
+	fi
+	done
 	clear
 	echo "Please enter your env variables: "
 	sleep 0.15
