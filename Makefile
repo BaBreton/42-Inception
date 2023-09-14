@@ -11,7 +11,7 @@ config:
 	@bash ./srcs/tools/create_inception.sh $(ENV) $(BASEYML) $(COMPOSE_FILE)
 
 build:
-	@bash ./srcs/tools/check_data.sh $(ENV)
+	@sudo bash ./srcs/tools/check_data.sh $(ENV)
 	sudo docker-compose -f $(COMPOSE_FILE) build
 	@echo "\n\nInception is ready to be launched."
 
