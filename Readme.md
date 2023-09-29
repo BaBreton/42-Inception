@@ -3,7 +3,7 @@
 </p>
 <p align="center">
   <img src="https://img.shields.io/badge/Language-Docker-cyan" alt="language" />
-  <img src="https://img.shields.io/badge/Mark-NC/105-green" alt="language" />
+  <img src="https://img.shields.io/badge/Mark-105/100-green" alt="language" />
 </p>
 
 # 42-Inception
